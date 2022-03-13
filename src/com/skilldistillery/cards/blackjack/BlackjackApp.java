@@ -52,7 +52,24 @@ public class BlackjackApp {
 			System.out.println("Bust!");
 		}
 	}
+	private void hitOrStay() {
+		System.out.println("1) to Hit or 2) to Stay");
+		int hitorstay = kb.nextInt();
+		if (hitorstay == 1) {
+			this.play.hand.addCard(this.deck.dealCard());
+			this.play.showHand();
+			checkHand();
+		} else if (hitorstay == 2) {
+			System.out.println("You: " + this.play.hand.getCards() + " " + this.play.hand.getHandValue());
+			dealerTurn();
+		}
+	}
 	
+		private void dealerTurn() {
+			while(this.deal.dealerHand.getHandValue() < 17) {
+				deal.dealerHand.addCard(this.deck.dealCard());
+			}
+		}
 	}
 
 
