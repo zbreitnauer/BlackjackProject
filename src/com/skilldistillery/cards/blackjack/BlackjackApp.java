@@ -50,8 +50,12 @@ public class BlackjackApp {
 	private void checkHand() {
 		if(this.play.hand.bust()) {
 			System.out.println("Bust!");
+			whoWins();
 		}
-	}
+		if (this.play.hand.bust() || !this.play.hand.blackjack()) {
+			hitOrStay();}
+		}
+	
 	private void hitOrStay() {
 		System.out.println("1) to Hit or 2) to Stay");
 		int hitorstay = kb.nextInt();
@@ -69,7 +73,40 @@ public class BlackjackApp {
 			while(this.deal.dealerHand.getHandValue() < 17) {
 				deal.dealerHand.addCard(this.deck.dealCard());
 			}
+			whoWins();
+		}
+		private void whoWins() {
+			if (this.play.hand.bust() || this.deal.dealerHand.blackjack()
+					|| !this.deal.dealerHand.bust() && this.deal.dealerHand.getHandValue() > this.play.hand.getHandValue()) {
+				this.deal.showHand();
+				deal.dealerWins();
+		}
+			if (this.play.hand.blackjack() || this.deal.dealerHand.bust()
+					|| !this.play.hand.bust() && this.play.hand.getHandValue() > this.deal.dealerHand.getHandValue()) {
+				this.deal.showHand();
+				play.playerWins();
+
+			}
+
+			if (this.play.hand.getHandValue() == this.deal.dealerHand.getHandValue()) {
+				this.deal.showHand();
+				System.out.println("Push");
+			}
+
+			String playAgain = kb.nextLine();
+			if (playAgain.equals("Y")) {
+				this.deal.dealerHand.clear();
+				this.play.hand.clear();
+				Deck deck = new Deck();
+				newGame();
+
+			} else if (playAgain.equals("N")) {
+				System.out.println("Good Game!");
+			}
+
+			kb.close();
 		}
 	}
+
 
 
