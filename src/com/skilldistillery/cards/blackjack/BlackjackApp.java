@@ -2,7 +2,7 @@ package com.skilldistillery.cards.blackjack;
 
 import java.util.Scanner;
 
-import com.skilldistillery.cards.common.Deck;
+import com.skilldistillery.cards.common.*;
 
 
 
@@ -58,12 +58,12 @@ public class BlackjackApp {
 	
 	private void hitOrStay() {
 		System.out.println("1) to Hit or 2) to Stay");
-		int hitorstay = kb.nextInt();
-		if (hitorstay == 1) {
+		String hitorstay = kb.nextLine();
+		if (hitorstay.equals("1")) {
 			this.play.hand.addCard(this.deck.dealCard());
 			this.play.showHand();
 			checkHand();
-		} else if (hitorstay == 2) {
+		} else if (hitorstay.equals("2")) {
 			System.out.println("You: " + this.play.hand.getCards() + " " + this.play.hand.getHandValue());
 			dealerTurn();
 		}
@@ -94,13 +94,13 @@ public class BlackjackApp {
 			}
 
 			String playAgain = kb.nextLine();
-			if (playAgain.equals("Y")) {
+			if (playAgain.equalsIgnoreCase("Y")) {
 				this.deal.dealerHand.clear();
 				this.play.hand.clear();
 				Deck deck = new Deck();
 				newGame();
 
-			} else if (playAgain.equals("N")) {
+			} else if (playAgain.equalsIgnoreCase("N")) {
 				System.out.println("Good Game!");
 			}
 
